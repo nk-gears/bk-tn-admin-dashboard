@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Loader from "@/components/common/Loader";
+import Provider from "@/components/Provider"
 
 
 
@@ -21,10 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
+        <Provider>
         <div className="dark:bg-boxdark-2 dark:text-bodydark">
-          {loading ? (
-            <Loader />
-          ) : (
+  
             <div className="flex h-screen overflow-hidden">
               {/* <!-- ===== Sidebar Start ===== --> */}
              
@@ -46,8 +46,9 @@ export default function RootLayout({
               </div>
               {/* <!-- ===== Content Area End ===== --> */}
             </div>
-          )}
+      
         </div>
+        </Provider>
       </body>
     </html>
   );

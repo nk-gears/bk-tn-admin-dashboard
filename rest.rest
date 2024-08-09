@@ -1,0 +1,102 @@
+
+### MMM112
+GET /api/profile
+Host: localhost:3000
+Accept-Encoding: deflate, gzip
+Accept: */*
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+Cookie: next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000; next-auth.csrf-token=5b99441dbe616865219a6ed3aa11b82e1e05f881bb946c1381a5981369c5299f%7C656af55dbccddb909f352e1d7b526042b353890988e42c1401bd2a1541c8dcb1; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..I_qvJmaiKCEInw47.C813lHML90B-ZzBPSVLL3mrSH-NKG73u6c8krcspKzrL0vOzb7UPMuolehVp08Lgsrr3omOM_baMVIPSyGPo9hesq18F2onvZ51NiYIDk-___5l8TMnNb2ejNTxfp7pLLyPm9sLNecYusRTDVdrQy1ODl2NqbOhvhGZ75NZpR-NrBEyGUVE46RDyCFB992XxbC8oE_QrAmQoLc21xOxp7UC9nDA6WmPftoephCqqXlccHKHRVToQJ97TGhdCWoWJ53PP82t_c4gD3zHOdKR_jkhhHKKIGAg7WRRDXaSaR2knfdNLi4eT7n7jBco_npzMduULa5m46Waj5_IhPe0UMnrFCLyVLT09HjIyBrjsle6MAsn4nZHghUrpWedj3ZE5VilKtGFO.QCzKXQaMECZs2pcgMnGe-Q
+If-None-Match: "tv7130u0x2l"
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+sec-ch-ua: "Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+
+### MM11
+
+curl 'http://localhost:3000/api/time-entries/1377bba94be2dce0e751592cdbfaccf?month=8&year=2023' \
+  -X 'DELETE' \
+  -H 'Accept: */*' \
+  -H 'Accept-Language: en-GB,en-US;q=0.9,en;q=0.8' \
+  -H 'Connection: keep-alive' \
+  -H 'Cookie: next-auth.csrf-token=2ebfa6c5a202a8dce98d8bf8b36e473c9af1e6666ba76998e385ee2a948d5037%7C8277929c0e5e59362611120ecc77f9c6f41d5e18302b1ad673a8cc8fbf794170; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fmy-timesheet; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wgQwVugfTLIQsF65.pboE9u2sGkcylEJ4URcfazjzzKhNW_7rnEA-OZVG7YhdoISnYEsPVVMYrE6v0Q3oqXMBN7uur0gr6p3puimSNL_y5esTAuGnhSDGf18kZ0bOh1B4jqZlFNWdUQwMDMJ-oC9UFZHGI5veEygH5HFGBb1nKvckAkWYJzZRtrDJwsbHBGj8yDkbv_WgfmKgL6XP8TWweQVWL5bXtJ6zAsXq0y200K0zIE1-VE86mqk3DJ4JKYv69aughDNxEjAzTaVhp3JnTXr7q0qD6zyy8K-DNUwGhbSjqUQS6UKakD-LbR1k2j_CMFlJ3EDbl6M7eyjrXORIsWldEIPdpskddMI-36qRWcv2Ws8-lbV_57Vx8OoYYquaiTotEbVV0PASHgc8RNtZa0DpXt2r.Cs_6WISHUf9RKRMrpvdukQ' \
+  -H 'Origin: http://localhost:3000' \
+  -H 'Referer: http://localhost:3000/my-timesheet' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  --compressed
+
+  # gcloud builds submit --tag europe-west1-docker.pkg.dev/stgerards-app/cloud-run-source-deploy/timesheet:v0.0.9
+# 
+
+gcloud builds submit --tag europe-west1-docker.pkg.dev/stgerards-app/cloud-run-source-deploy/timesheet:v0.0.9
+
+gcloud run deploy timesheet \
+--image=europe-west1-docker.pkg.dev/stgerards-app/cloud-run-source-deploy/timesheet:v0.0.8 \
+--region=europe-west1 \
+--project=stgerards-app \
+ && gcloud run services update-traffic timesheet --to-latest
+  ### New Curl
+
+
+### TS Entries
+
+POST /api/time-entries HTTP/1.1
+Host: localhost:3000
+Accept-Encoding: deflate, gzip
+Content-Type: application/json
+
+{"targetDate":null,"week_start":"2023-11-06T00:00:00.000Z","week_end":"2023-11-12T00:00:00.000Z","startDate":"2023-11-07T02:41:11.000Z","startTime":"2023-11-07T06:45:00.000Z","endTime":"2023-11-07T08:20:00.634Z","levelData":{"level_0":"","level_1":"SS Girls Sport","level_2":"Pavillion Gym"},"durationMins":95}
+
+
+### DELETE
+
+DELETE /api/time-entries/d03c75cea1467fd8f57275ca6022eff9?month=11&year=2023&week_start=2023-11-06&week_end=2023-11-12 HTTP/1.1
+Host: localhost:3000
+Accept-Encoding: deflate, gzip
+Accept: */*
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+Cookie: next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000; next-auth.csrf-token=1adb6b20eaa24fc1df941775a8d4535045c4eecdd728d1e105221ad69dcfd141%7C8f334210f936abecc5a98a5e03369872a87fd6aed6bc48c96c61934adac858f2; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..Mf7Jywas2nrbBdxw.UwszSsmUZHccMfvMZvyURDuvBdyP9CIrXp8D8-F6MzUZz3ztNqbX4G6zCfgN8bFk9lSPm2NlRcy_rJyOQ05LijMQL2ZbZN8z0PI8VLtoSVuVSsgWn534yc9DpaScrUXfDP_ZnzcS13woX0MSgCczxYh6WcIMbutkv1y52O0PRYMwQ3yMBAg2Mp-khfslne97RfBiYFv2jV5mdfj_bVUmjGet6-deWhu_oq3GpxrAvWYenFdNvTxsuicb8f9_Q3-6cL9Pis9wjVua1gTANe-StzEhToiA_a5DRlM4wxp5WOfaXAIswNzduP8KpLJLTjzdS71d6QXKg6o1VwrJ99iQUfUyUI12u_fUFiKm7WfSGgQjPUPKilVBDwlS-Tk8apINphjXLG2Hpz4seqSYElDGa-XwY-C33A.q6DejimWTxy7V4ilBTMQ7Q
+Origin: http://localhost:3000
+Referer: http://localhost:3000/my-timesheet
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
+sec-ch-ua: "Chromium";v="118", "Google Chrome";v="118", "Not=A?Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+
+
+
+### M11
+POST /api/time-entries HTTP/1.1
+Host: localhost:3000
+Accept-Encoding: deflate, gzip
+Accept: */*
+Accept-Language: en-US,en;q=0.9
+Connection: keep-alive
+Content-Type: application/json
+Cookie: next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000; next-auth.csrf-token=fec368b13fe0554643657ac1c9f4ca52fb1775e58db5f293632fb0207f1270a5%7C44f57515e66bf250c1c078c9f9d19bcd2868d36139edf3b887a312b861e2a349; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..WRP8imdcVwmdZ7fM.xmvNBwCk2r4rQJ7W2HmL0qjYF3HIgNukGlpXU9eKR87li32rl1dcU4D6tBsml50nVdFmyfvogYJKyg0PPyV_g3mVnEf0E8MehYgoeC91OBnJGvFn3PKBVd3UemJeUnWIAlnRGcJm_cbbxsPcqgBEfAdWAEOtEZd6ep7gCAMv6YEJMLWfAyQGK-jGOqyN9sJh4i8fhA-R7MJ8MjlvziBFS48fLNdNC5EYxK7LPMGhtEkoRAX7GdnzGThiH-3gW030xAWrmi6UMrUarxSNQXPH0hZ8JchiYETDo_1UoXoDg4-tadKkgcTsUlzJ3K-0DZwYvXjJWw_ktVjJdSz0ko0G1ZmhEBOz9CaRyyM2YqT_-C7rpWkw_EHaV-zpZb__RSAhUSX9DyUQE8MRMRV6m9ckEBzANTB4pROplg-PAyKVvA.1RROWvStHmpc04mxjyT2WA
+Origin: http://localhost:3000
+Referer: http://localhost:3000/my-timesheet
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Content-Length: 323
+
+{"targetDate":"2023-12-17T01:47:38.201Z","week_start":"2023-11-20","week_end":"2023-11-26","startDate":"2023-11-25T01:35:32.000Z","startTime":"2023-11-24T01:30:00.199Z","endTime":"2023-11-24T01:40:00.627Z","levelData":{"level_0":"","level_1":"S1S Boys Sport","level_2":"Tennis","level_3":"Fi1xed tra1ining"},"durationMins":10}
